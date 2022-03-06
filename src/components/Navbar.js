@@ -21,11 +21,12 @@ function Navbar() {
 export default Navbar;
 
 const Nav = styled.nav`
+  padding: 0 calc(3.5vw + 5px);
   height: 70px;
   background: #090b13;
   display: flex;
-  padding: 0 36px;
   align-items: center;
+  overflow-x: hidden;
 `;
 
 const Logo = styled.img`
