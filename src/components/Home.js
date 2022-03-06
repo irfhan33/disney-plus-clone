@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ImgSlider from "./ImgSlider";
+import Movies from "./Movies";
 import Viewers from "./Viewers";
 
 function Home() {
@@ -9,6 +10,7 @@ function Home() {
       <Container>
         <ImgSlider />
         <Viewers />
+        <Movies />
       </Container>
     </div>
   );
@@ -21,6 +23,7 @@ const Container = styled.main`
   padding: 0 calc(3.5vw + 5px);
   position: relative;
   overflow-x: hidden;
+  padding-bottom: 50px;
 
   &:before {
     content: "";

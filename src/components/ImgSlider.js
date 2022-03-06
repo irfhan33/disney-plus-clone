@@ -17,7 +17,6 @@ export default function ImgSlider() {
     <Carousel {...settings}>
       <Warp src="images/slider-badging.jpg" />
       <Warp src="images/slider-badag.jpg" />
-      <Warp src="images/Wind_Breaker_Banner.png" />
       <Warp src="images/slider-scale.jpg" />
     </Carousel>
   );
@@ -58,7 +57,7 @@ const Warp = styled.img`
     rgb(0 0 0 / 73%) 0px 16px 10px -10px;
   transition-duration: 300ms;
   cursor: pointer;
-  max-height: 368px;
+  // max-height: 368px;
   // object-fit: cover;
 
   &:hover {
