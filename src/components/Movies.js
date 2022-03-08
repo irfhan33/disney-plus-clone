@@ -1,23 +1,24 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { selectMovies } from "../features/movie/movieSlice";
 
 function Movies() {
+  const movies = useSelector(selectMovies);
+  console.log(movies);
   return (
     <Container>
       <h2>Recommend For You</h2>
       <Content>
-        <Wrap>
-          <img src="https://wallpapercave.com/wp/wp9462964.jpg" alt="" />
-        </Wrap>
-        <Wrap>
-          <img src="https://wallpapercave.com/wp/wp9462964.jpg" alt="" />
-        </Wrap>
-        <Wrap>
-          <img src="https://wallpapercave.com/wp/wp9462964.jpg" alt="" />
-        </Wrap>
-        <Wrap>
-          <img src="https://wallpapercave.com/wp/wp9462964.jpg" alt="" />
-        </Wrap>
+        {movies &&
+          movies.map((movie) => (
+            <Wrap key={movie.id}>
+              <Link to={`/detail/${movie.id}`}>
+                <img src={movie.cardImg} alt="" />
+              </Link>
+            </Wrap>
+          ))}
       </Content>
     </Container>
   );
