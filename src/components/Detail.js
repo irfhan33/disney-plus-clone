@@ -1,46 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { db } from "./../firebase";
 
 function Detail() {
+  const { id } = useParams();
+  const [movie, setMovie] = useState();
+  useEffect(() => {
+    db.collection("movies")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        if (!doc) {
+          return alert("gada data");
+        }
+        setMovie(doc.data());
+      });
+
+    console.log(movie);
+  }, []);
   return (
     <Container>
-      <BackgroundImage>
-        <img
-          draggable="false"
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/4F39B7E16726ECF419DD7C49E011DD95099AA20A962B0B10AA1881A70661CE45/scale?width=1440&aspectRatio=1.78&format=jpeg"
-          alt=""
-        />
-      </BackgroundImage>
-      <TitleImage>
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/D7AEE1F05D10FC37C873176AAA26F777FC1B71E7A6563F36C6B1B497CAB1CEC2/scale?width=1440&aspectRatio=1.78"
-          alt=""
-          draggable="false"
-        />
-      </TitleImage>
-      <Controls>
-        <PlayButton>
-          <img src="/images/play-icon-black.png" alt="" />
-          <span>PLAY</span>
-        </PlayButton>
-        <TrailerButton>
-          <img src="/images/play-icon-white.png" alt="" />
-          <span>TRAILER</span>
-        </TrailerButton>
-        <AddButton>
-          <span>+</span>
-        </AddButton>
-        <GroupWatchButton>
-          <img src="/images/group-icon.png" alt="" />
-        </GroupWatchButton>
-      </Controls>
-      <SubTitle>2015 • 1h 35m • Coming of Age, Family, Animation</SubTitle>
-      <Description>
-        When 11-year-old Riley moves to a new city, her Emotions team up to help
-        her through the transition. Joy, Fear, Anger, Disgust and Sadness work
-        together, but when Joy and Sadness get lost, they must journey through
-        unfamiliar places to get back home.
-      </Description>
+      {movie && (
+        <>
+          <BackgroundImage>
+            <img draggable="false" src={movie.backgroundImg} alt="" />
+          </BackgroundImage>
+          <TitleImage>
+            <img src={movie.titleImg} alt="" draggable="false" />
+          </TitleImage>
+          <Controls>
+            <PlayButton>
+              <img src="/images/play-icon-black.png" alt="" />
+              <span>PLAY</span>
+            </PlayButton>
+            <TrailerButton>
+              <img src="/images/play-icon-white.png" alt="" />
+              <span>TRAILER</span>
+            </TrailerButton>
+            <AddButton>
+              <span>+</span>
+            </AddButton>
+            <GroupWatchButton>
+              <img src="/images/group-icon.png" alt="" />
+            </GroupWatchButton>
+          </Controls>
+          <SubTitle>{movie.subTitle}</SubTitle>
+          <Description>{movie.description}</Description>
+        </>
+      )}
     </Container>
   );
 }

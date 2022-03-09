@@ -1,15 +1,21 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { setMovies } from "../features/movie/movieSlice";
+import { selectUserName } from "../features/user/userSlice";
 import { db } from "../firebase";
 import ImgSlider from "./ImgSlider";
 import Movies from "./Movies";
 import Viewers from "./Viewers";
-
+import { useNavigate } from "react-router-dom";
 function Home() {
   const dispatch = useDispatch();
-  useEffect(() => {
+  const user = useSelector(selectUserName);
+  const navigate = useNavigate();
+
+  useEffect(async () => {
+    if (!user) navigate("/login");
+
     db.collection("movies").onSnapshot((snapshot) => {
       let tempMovies = snapshot.docs.map((doc) => ({
         id: doc.id,

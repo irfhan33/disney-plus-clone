@@ -6,7 +6,6 @@ import { selectMovies } from "../features/movie/movieSlice";
 
 function Movies() {
   const movies = useSelector(selectMovies);
-  console.log(movies);
   return (
     <Container>
       <h2>Recommend For You</h2>
